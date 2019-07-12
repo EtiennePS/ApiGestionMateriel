@@ -21,7 +21,7 @@ public class AdresseIpRestController {
 	@Autowired
 	IAdresseIpService service;
 	
-	@GetMapping("/id/{id}")
+	@GetMapping("/{id}")
 	public AdresseIp getById(@PathVariable Long id) {
 		return service.getById(id);
 	}

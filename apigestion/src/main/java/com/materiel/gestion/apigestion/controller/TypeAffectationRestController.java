@@ -19,7 +19,7 @@ public class TypeAffectationRestController {
 	@Autowired
 	ITypeAffectationService service;
 	
-	@GetMapping("/id/{id}")
+	@GetMapping("/{id}")
 	public TypeAffectation getById(@PathVariable Long id) {
 		return service.getById(id);
 	}
