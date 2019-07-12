@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.materiel.gestion.apigestion.model.entite.TypeAffectation;
 
-public interface ITypeAffectationService {
-	public TypeAffectation getById(Long id);
+public interface ITypeAffectationService extends IGenericService<TypeAffectation> {
 	
-	public List<TypeAffectation> getAll();
 }
