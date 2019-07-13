@@ -31,6 +31,6 @@ public class AdresseIp {
 	private String masque;
 	
 	@ManyToOne
-	@JoinColumn(name = "idtypeaff", nullable = false)
-	private TypeAffectation typeAffectation;
+	@JoinColumn(name = "idcpville", nullable = false)
+	private Ville ville;
 }
