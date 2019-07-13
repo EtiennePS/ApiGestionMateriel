@@ -1,5 +1,6 @@
 package com.materiel.gestion.apigestion.model.entite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,11 +25,16 @@ public class Client {
     private String adresse2;
 
     @ManyToOne
-    @JoinColumn(name = "ville", nullable = true)
+    @JoinColumn(name = "idcpville", nullable = true)
     private Ville ville;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Contact> contacts;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private List<Materiel> materiels;
 
 }
 
