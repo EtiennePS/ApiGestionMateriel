@@ -3,6 +3,7 @@ package com.materiel.gestion.apigestion.model.entite;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,7 +25,11 @@ public class Client {
 
     @ManyToOne
     @JoinColumn(name = "ville", nullable = true)
-    private TypeAffectation typeAffectation;
+    private Ville ville;
+
+    @OneToMany(mappedBy = "client")
+    private List<Contact> contacts;
+
 }
 
 

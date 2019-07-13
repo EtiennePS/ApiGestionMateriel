@@ -29,7 +29,7 @@ public class Personne {
 	@Column(name="prenom", length=50, nullable=false)
 	private String prenom;
 	
-	@Column(name="nom", length=14, nullable=true)
+	@Column(name="telephone", length=14, nullable=true)
 	private String telephone;
 	
 	@Column(name="email", length=100, nullable=false)
