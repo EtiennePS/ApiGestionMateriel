@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.materiel.gestion.apigestion.exception.NoSuchEntityException;
-import com.materiel.gestion.apigestion.service.IGenericService;
+import com.materiel.gestion.apigestion.service.IGettableService;
 
-public abstract class GenericService<E> implements IGenericService<E> {
+public abstract class GettableService<E> implements IGettableService<E> {
 	@Autowired
 	private JpaRepository<E, Long> repository;
 	

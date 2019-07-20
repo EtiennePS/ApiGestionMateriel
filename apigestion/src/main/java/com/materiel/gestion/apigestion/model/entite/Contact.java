@@ -9,10 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.core.Relation;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data @Entity
 @Table(name="appartient")
+@Relation(collectionRelation = "contacts")
 public class Contact {
 	
 	@Id
@@ -28,6 +33,7 @@ public class Contact {
 	@JoinColumn(name="idpersonne")
 	private Personne personne;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="idclient")
 	private Client client;

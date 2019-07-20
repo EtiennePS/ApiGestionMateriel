@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MaterielService extends GenericService<Materiel> implements IMaterielService {
+public class MaterielService extends GettableService<Materiel> implements IMaterielService {
     @Autowired
     private MaterielRepository repository;
 }

@@ -6,10 +6,13 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
-@Data
-@Entity
+@Data @Entity
 @Table(name="client")
 public class Client {
+	
+	public Client() { }
+	public Client(Long id) { setId(id); }
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", length=11, nullable=false)

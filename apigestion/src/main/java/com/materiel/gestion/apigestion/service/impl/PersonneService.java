@@ -8,9 +8,14 @@ import com.materiel.gestion.apigestion.repository.PersonneRepository;
 import com.materiel.gestion.apigestion.service.IPersonneService;
 
 @Service
-public class PersonneService extends GenericService<Personne> implements IPersonneService {
+public class PersonneService extends GettableService<Personne> implements IPersonneService {
 	
 	@Autowired
 	private PersonneRepository repository;
+
+	@Override
+	public Personne create(Personne p) {
+		return repository.save(p);
+	}
 	
 }

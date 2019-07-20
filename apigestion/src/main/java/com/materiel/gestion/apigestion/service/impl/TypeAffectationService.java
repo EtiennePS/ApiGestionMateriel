@@ -10,7 +10,7 @@ import com.materiel.gestion.apigestion.repository.TypeAffectationRepository;
 import com.materiel.gestion.apigestion.service.ITypeAffectationService;
 
 @Service
-public class TypeAffectationService extends GenericService<TypeAffectation> implements ITypeAffectationService {
+public class TypeAffectationService extends GettableService<TypeAffectation> implements ITypeAffectationService {
 	
 	@Autowired
 	private TypeAffectationRepository repository;

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClientService extends GenericService<Client> implements IClientService {
+public class ClientService extends GettableService<Client> implements IClientService {
 @Autowired
 private ClientRepository repository;
 }

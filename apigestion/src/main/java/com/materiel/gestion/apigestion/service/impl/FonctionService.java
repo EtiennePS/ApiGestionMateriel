@@ -10,7 +10,7 @@ import com.materiel.gestion.apigestion.service.IFonctionService;
 
 
 @Service
-public class FonctionService extends GenericService<Fonction> implements IFonctionService {
+public class FonctionService extends GettableService<Fonction> implements IFonctionService {
 	
 	@Autowired
 	private FonctionRepository repository;

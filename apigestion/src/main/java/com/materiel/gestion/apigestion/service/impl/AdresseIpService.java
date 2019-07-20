@@ -10,7 +10,7 @@ import com.materiel.gestion.apigestion.repository.AdresseIpRepository;
 import com.materiel.gestion.apigestion.service.IAdresseIpService;
 
 @Service
-public class AdresseIpService extends GenericService<AdresseIp> implements IAdresseIpService {
+public class AdresseIpService extends GettableService<AdresseIp> implements IAdresseIpService {
 	
 	@Autowired
 	private AdresseIpRepository repository;
