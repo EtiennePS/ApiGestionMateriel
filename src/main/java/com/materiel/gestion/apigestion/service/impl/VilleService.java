@@ -12,4 +12,9 @@ import org.springframework.stereotype.Service;
 public class VilleService extends GettableService<Ville> implements IVilleService {
     @Autowired
     private VilleRepository repository;
+    
+    @Override
+    public Ville create(Ville v) {
+        return repository.save(v);
+    }
 }

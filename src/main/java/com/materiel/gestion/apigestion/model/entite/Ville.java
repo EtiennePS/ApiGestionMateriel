@@ -18,5 +18,4 @@ public class Ville {
     @Column(name = "ville",length = 100,nullable = false)
     private String ville;
 
-
 }
