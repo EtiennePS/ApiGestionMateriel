@@ -4,7 +4,7 @@ import com.materiel.gestion.apigestion.model.entite.Interface;
 import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.service.IMaterielService;
 import com.materiel.gestion.apigestion.service.IInterfaceService;
-
+import com.materiel.gestion.apigestion.model.entite.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +44,15 @@ public class MaterielRestController {
     	
     	Interface i = interfaceService.create(in);
 		return ResponseEntity.created(new URI("api/v1/interfaces/" + i.getId())).body(i);
+    }
+
+    @PostMapping("/{id}/materiels")
+    public ResponseEntity<Materiel> create(@RequestBody Materiel materiel, @PathVariable Long id) throws URISyntaxException {
+        // On ajoute l'id client au contact
+        materiel.setClient(new Client(id));
+
+        Materiel m = service.create(materiel);
+        return ResponseEntity.created(new URI("api/v1/materiels/" + m.getId())).body(m);
     }
 }
     

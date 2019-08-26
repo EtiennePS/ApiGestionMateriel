@@ -11,4 +11,9 @@ import org.springframework.stereotype.Service;
 public class TypeMaterielService extends GettableService<TypeMateriel> implements ITypeMaterielService {
     @Autowired
     private TypeMaterielRepository repository;
+
+    @Override
+    public TypeMateriel create(TypeMateriel p) {
+        return repository.save(p);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,5 +53,14 @@ public class ClientRestController {
 		Contact c = contactService.create(contact);
 		return ResponseEntity.created(new URI("api/v1/contacts/" + c.getId())).body(c);
 	}
+    
+    @PutMapping("/{id}/contacts/{idContact}")
+    public Contact edit(@RequestBody Contact contact, @PathVariable Long id, @PathVariable Long idContact) {
+    	contact.setClient(new Client(id));
+    	contact.setId(idContact);
+    	
+    	Contact c = contactService.edit(contact);
+    	return c;
+    }
 
 }

@@ -44,5 +44,21 @@ public class ContactService extends GettableService<Contact> implements IContact
 		
 		return repository.save(c);
 	}
+
+	@Override
+	public Contact edit(Contact c) {
+		
+		//On autorise pas la modification du client, donc on écrase le client fournit
+		c.setClient(clientService.getById(c.getClient().getId()));
+		
+		//On récupère la nouvelle fonction du contact grâce à l'id fournit, en ignorant le libellé fournit
+		c.setFonction(fonctionService.getById(c.getFonction().getId()));
+		
+		//On modifie la personne et on la réinjecte dans le contact
+		personneService.edit(c.getPersonne());
+		c.setPersonne(personneService.getById(c.getPersonne().getId()));
+		
+		return repository.save(c);
+	}
 	
 }

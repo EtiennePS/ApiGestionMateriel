@@ -17,5 +17,12 @@ public class PersonneService extends GettableService<Personne> implements IPerso
 	public Personne create(Personne p) {
 		return repository.save(p);
 	}
+
+	@Override
+	public Personne edit(Personne p) {
+		return repository.save(p);
+	}
+	
+	
 	
 }
