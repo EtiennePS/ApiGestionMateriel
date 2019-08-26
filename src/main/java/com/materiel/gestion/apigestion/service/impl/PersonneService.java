@@ -3,6 +3,7 @@ package com.materiel.gestion.apigestion.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.materiel.gestion.apigestion.exception.CreationException;
 import com.materiel.gestion.apigestion.model.entite.Personne;
 import com.materiel.gestion.apigestion.repository.PersonneRepository;
 import com.materiel.gestion.apigestion.service.IPersonneService;
@@ -15,6 +16,9 @@ public class PersonneService extends GettableService<Personne> implements IPerso
 
 	@Override
 	public Personne create(Personne p) {
+		if(p.getId() != null) {
+			throw new CreationException("Il est interdit de renseigner l'id lors de la création de Personne");
+		}
 		return repository.save(p);
 	}
 
@@ -22,7 +26,6 @@ public class PersonneService extends GettableService<Personne> implements IPerso
 	public Personne edit(Personne p) {
 		return repository.save(p);
 	}
-	
 	
 	
 }
