@@ -5,6 +5,4 @@ import com.materiel.gestion.apigestion.model.entite.TypeInterface;
 
 public interface ITypeInterfaceService extends IGettableService<TypeInterface>{
 
-	TypeInterface create(TypeInterface typeif);
-
 }
