@@ -176,3 +176,30 @@ VALUES (1, '192.168.254.250', null, '255.255.255.0', 1, 1),
        (6, '192.168.254.11', null, '255.255.255.0', 6, 2),
        (7, '192.168.254.12', null, '255.255.255.0', 7, 2),
        (8, '192.168.254.13', null, '255.255.255.0', 8, 2);
+
+CREATE TABLE user (
+	id INT NOT NULL AUTO_INCREMENT,
+	username varchar(100) NOT NULL,
+	password varchar(255) NOT NULL,
+	CONSTRAINT user_pk PRIMARY KEY (id),
+	CONSTRAINT user_name_uniq UNIQUE KEY (username)
+)Engine=InnoDB;
+
+create table statut(
+id int not null PRIMARY KEY auto_increment,
+nom varchar(50) )Engine=InnoDB;
+
+create table incident(
+id int not null PRIMARY KEY auto_increment ,
+dateCreation datetime not null,
+dateCloture datetime,
+symptome VARCHAR(1000),
+resolution VARCHAR(1000),
+nom varchar(50),
+idstatut int ,
+idmateriel int,
+   CONSTRAINT FK_APP_STATUT FOREIGN KEY (idstatut) REFERENCES statut(id),
+   CONSTRAINT FK_APP_MATERIEL FOREIGN KEY (idmateriel) REFERENCES materiel(id)
+   )Engine=InnoDB;
+
+
