@@ -29,17 +29,20 @@ public class ClientRestController {
     @Autowired
     IContactService contactService;
 
+    @Autowired
+    IClientService clientService;
+
     @GetMapping("/{id}")
     public Client getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Client> getAll() {
         return service.getAll();
     }
     
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Client> create(@RequestBody Client client) throws URISyntaxException {
     	Client c = service.create(client);
     	return ResponseEntity.created(new URI("api/v1/clients/" + c.getId())).body(c);
@@ -61,6 +64,13 @@ public class ClientRestController {
     	
     	Contact c = contactService.edit(contact);
     	return c;
+    }
+
+    @PutMapping("/{id}")
+    public Client edit(@RequestBody Client client, @PathVariable Long id) {
+        client.setId(id);
+        Client c = clientService.edit(client);
+        return c;
     }
 
 }
