@@ -27,18 +27,16 @@ public class MaterielService extends GettableService<Materiel> implements IMater
     public Materiel create(Materiel m) {
         TypeMateriel t;
         if (m.getId() != null){
-            throw new CreationException("Interdiction de mettre un id customisé pour le materiel"){
-
-            };
+            throw new CreationException("Interdiction de mettre un id customisé pour le materiel");
         }
         if (m.getTypeMateriel().getId() ==null){
             t = typeMaterielService.create(m.getTypeMateriel());
         }
-    else{
-        t=typeMaterielService.getById(m.getTypeMateriel().getId());
+        else{
+        	t=typeMaterielService.getById(m.getTypeMateriel().getId());
         }
-    m.setTypeMateriel(t);
-    m.setClient(clientService.getById(m.getClient().getId()));
-    return repository.save(m);
+	    m.setTypeMateriel(t);
+	    m.setClient(clientService.getById(m.getClient().getId()));
+	    return repository.save(m);
     }
 }
