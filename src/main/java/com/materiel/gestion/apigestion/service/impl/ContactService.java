@@ -8,7 +8,10 @@ import com.materiel.gestion.apigestion.exception.CreationException;
 import com.materiel.gestion.apigestion.model.entite.Contact;
 import com.materiel.gestion.apigestion.model.entite.Personne;
 import com.materiel.gestion.apigestion.repository.ContactRepository;
+import com.materiel.gestion.apigestion.service.IClientService;
 import com.materiel.gestion.apigestion.service.IContactService;
+import com.materiel.gestion.apigestion.service.IFonctionService;
+import com.materiel.gestion.apigestion.service.IPersonneService;
 
 @Service
 public class ContactService extends GettableService<Contact> implements IContactService {
@@ -17,13 +20,13 @@ public class ContactService extends GettableService<Contact> implements IContact
 	private ContactRepository repository;
 	
 	@Autowired
-	private PersonneService personneService;
+	private IPersonneService personneService;
 	
 	@Autowired 
-	private FonctionService fonctionService;
+	private IFonctionService fonctionService;
 	
 	@Autowired
-	private ClientService clientService;
+	private IClientService clientService;
 
 	@Override
 	@Transactional
