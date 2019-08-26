@@ -8,6 +8,10 @@ import javax.persistence.*;
 @Entity
 @Table(name="materiel")
 public class Materiel {
+	
+	public Materiel() { }
+	public Materiel(Long id) { setId(id); }
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", length=11, nullable=false)
