@@ -42,7 +42,15 @@ public class MaterielService extends GettableService<Materiel> implements IMater
 	    m.setClient(clientService.getById(m.getClient().getId()));
 	    return repository.save(m);
     }
-    
+    @Override
+    @Transactional
+    public Materiel edit(Materiel m ){
+        checkClient(m);
+        m.setClient(clientService.getById(m.getClient().getId()));
+        m.setTypeMateriel(typeMaterielService.getById(m.getTypeMateriel().getId()));
+        return repository.save(m);
+
+    }
 
     @Override
     @Transactional

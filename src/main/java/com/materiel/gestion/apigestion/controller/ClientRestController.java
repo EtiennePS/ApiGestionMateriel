@@ -3,6 +3,7 @@ package com.materiel.gestion.apigestion.controller;
 import com.materiel.gestion.apigestion.model.entite.Client;
 import com.materiel.gestion.apigestion.model.entite.Contact;
 import com.materiel.gestion.apigestion.model.entite.Materiel;
+import com.materiel.gestion.apigestion.model.entite.TypeMateriel;
 import com.materiel.gestion.apigestion.service.IClientService;
 import com.materiel.gestion.apigestion.service.IContactService;
 
@@ -89,11 +90,19 @@ public class ClientRestController {
         Materiel m = materielService.create(materiel);
         return ResponseEntity.created(new URI("api/v1/materiels/" + m.getId())).body(m);
     }
-    @DeleteMapping("/{id}/materiels")
-    public void deleteMateriel(@RequestBody Materiel materiel, @PathVariable Long id){
-        materiel.setClient(new Client(id));
-        materielService.delete(materiel);
+    @DeleteMapping("/{id}/materiels/{idMateriel}")
+    public void deleteMateriel( @PathVariable Long id, @PathVariable Long idMateriel){
+        Client ml = new Client(id);
+        Materiel m = new Materiel(idMateriel);
+        m.setClient(ml);
+        materielService.delete(m);
 
+    }
+    @PutMapping("/{id}/materiels")
+    public Materiel edit(@RequestBody Materiel materiel, @PathVariable Long id){
+        materiel.setId(id);
+        Materiel m = materielService.edit(materiel);
+        return m;
     }
 
 }
