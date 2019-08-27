@@ -81,6 +81,7 @@ public class ClientRestController {
     	contact.setId(idContact);
     	
     	Contact c = contactService.edit(contact);
+    	System.out.println("Edition terminée");
     	return c;
     }
     
