@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.DataTruncation;
+import java.util.List;
 
 @Service
 public class MaterielService extends GettableService<Materiel> implements IMaterielService {
@@ -23,6 +24,9 @@ public class MaterielService extends GettableService<Materiel> implements IMater
     TypeMaterielService typeMaterielService;
     @Autowired
     ClientService clientService;
+
+
+
 
 
     @Override
@@ -61,11 +65,27 @@ public class MaterielService extends GettableService<Materiel> implements IMater
             throw new DeleteException("Impossible de supprimer le materiel");
         }
     }
+    @Override
+    public List<Materiel> getByClient(Long idClient) {
+        return repository.findByClient(clientService.getById(idClient));
+    }
+
+    @Override
+    public Materiel getById(Long idMateriel, Long idClient) {
+        checkClient(createMateriel(idMateriel, idClient));
+        return this.getById(idMateriel);
+    }
 
     private void checkClient(Materiel m){
         Materiel materiel = repository.getOne(m.getId());
         if (materiel.getClient().getId()!= m.getClient().getId()){
             throw new DataOwnerException("Le materiel n'appartient pas à ce client");
         }
+    }
+    private Materiel createMateriel(Long idMateriel, Long idClient) {
+        Client m1 = new Client(idClient);
+        Materiel m = new Materiel(idMateriel);
+        m.setClient(m1);
+        return m;
     }
 }
