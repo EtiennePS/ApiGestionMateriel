@@ -17,6 +17,6 @@ public class Ville {
     private String codePostal;
 
     @Column(name = "ville",length = 100,nullable = false)
-    private String ville;
+    private String nom;
 
 }
