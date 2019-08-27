@@ -14,9 +14,9 @@ public class Ville {
     private Long id;
 
     @Column(name = "codepostal",length = 5,nullable = false)
-    private String codepostal;
+    private String codePostal;
 
     @Column(name = "ville",length = 100,nullable = false)
-    private String ville;
+    private String nom;
 
 }
