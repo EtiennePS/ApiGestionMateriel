@@ -47,6 +47,25 @@ public class ClientRestController {
     	return ResponseEntity.created(new URI("api/v1/clients/" + c.getId())).body(c);
     }
     
+    @PutMapping("/{id}")
+    public Client edit(@RequestBody Client client, @PathVariable Long id) {
+        client.setId(id);
+        Client c = clientService.edit(client);
+        return c;
+    }
+    
+    /****** CONTACT ******/
+    
+    @GetMapping("/{id}/contacts")
+    public List<Contact> getAllContacts(@PathVariable Long id) {
+		return contactService.getByClient(id);
+	}
+    
+    @GetMapping("/{id}/contacts/{idContact}")
+    public Contact getAllContacts(@PathVariable Long id, @PathVariable Long idContact) {
+		return contactService.getById(idContact, id);
+	}
+    
     @PostMapping("/{id}/contacts")
 	public ResponseEntity<Contact> createContact(@RequestBody Contact contact, @PathVariable Long id) throws URISyntaxException {
     	// On ajoute l'id client au contact
@@ -74,12 +93,7 @@ public class ClientRestController {
     	contactService.delete(c);
     }
 
-    @PutMapping("/{id}")
-    public Client edit(@RequestBody Client client, @PathVariable Long id) {
-        client.setId(id);
-        Client c = clientService.edit(client);
-        return c;
-    }
+    /****** MATERIEL ******/
     
     @PostMapping("/{id}/materiels")
     public ResponseEntity<Materiel> create(@RequestBody Materiel materiel, @PathVariable Long id) throws URISyntaxException {
@@ -90,11 +104,19 @@ public class ClientRestController {
         return ResponseEntity.created(new URI("api/v1/materiels/" + m.getId())).body(m);
     }
     
-    @DeleteMapping("/{id}/materiels")
-    public void deleteMateriel(@RequestBody Materiel materiel, @PathVariable Long id){
-        materiel.setClient(new Client(id));
-        materielService.delete(materiel);
-
+    @PutMapping("/{id}/materiels")
+    public Materiel edit(@RequestBody Materiel materiel, @PathVariable Long id){
+        materiel.setId(id);
+        Materiel m = materielService.edit(materiel);
+        return m;
     }
-
+    
+    @DeleteMapping("/{id}/materiels/{idMateriel}")
+    public void deleteMateriel( @PathVariable Long id, @PathVariable Long idMateriel){
+        Client ml = new Client(id);
+        Materiel m = new Materiel(idMateriel);
+        m.setClient(ml);
+        materielService.delete(m);
+    }
+    
 }

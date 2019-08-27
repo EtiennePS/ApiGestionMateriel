@@ -96,7 +96,7 @@ public class ContactService extends GettableService<Contact> implements IContact
 
 	@Override
 	public List<Contact> getByClient(Long idClient) {
-		return repository.findByClient(idClient);
+		return repository.findByClient(clientService.getById(idClient));
 	}
 	
 	@Override
