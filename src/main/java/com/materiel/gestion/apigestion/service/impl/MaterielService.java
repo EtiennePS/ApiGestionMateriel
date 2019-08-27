@@ -1,6 +1,8 @@
 package com.materiel.gestion.apigestion.service.impl;
 
 import com.materiel.gestion.apigestion.exception.CreationException;
+import com.materiel.gestion.apigestion.exception.DataOwnerException;
+import com.materiel.gestion.apigestion.exception.DeleteException;
 import com.materiel.gestion.apigestion.model.entite.Client;
 import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.model.entite.TypeMateriel;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.DataTruncation;
 
 @Service
 public class MaterielService extends GettableService<Materiel> implements IMaterielService {
@@ -38,5 +41,31 @@ public class MaterielService extends GettableService<Materiel> implements IMater
 	    m.setTypeMateriel(t);
 	    m.setClient(clientService.getById(m.getClient().getId()));
 	    return repository.save(m);
+    }
+    @Override
+    @Transactional
+    public Materiel edit(Materiel m ){
+        checkClient(m);
+        m.setClient(clientService.getById(m.getClient().getId()));
+        m.setTypeMateriel(typeMaterielService.getById(m.getTypeMateriel().getId()));
+        return repository.save(m);
+
+    }
+
+    @Override
+    @Transactional
+    public void delete(Materiel m) {
+        checkClient(m);
+        repository.delete(m);
+        if (repository.existsById(m.getId())){
+            throw new DeleteException("Impossible de supprimer le materiel");
+        }
+    }
+
+    private void checkClient(Materiel m){
+        Materiel materiel = repository.getOne(m.getId());
+        if (materiel.getClient().getId()!= m.getClient().getId()){
+            throw new DataOwnerException("Le materiel n'appartient pas à ce client");
+        }
     }
 }
