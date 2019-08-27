@@ -69,16 +69,16 @@ public class ContactService extends GettableService<Contact> implements IContact
 		
 		//On récupère la nouvelle fonction du contact grâce à l'id fournit, en ignorant le libellé fournit
 		c.setFonction(fonctionService.getById(c.getFonction().getId()));
-
-		// Si la personne lié au contact n'existe pas encore, il faut la créer, sinon on le modifie
+		
+		// Si la personne lié au contact n'existe pas encore, il faut la créer, sinon on la modifie
 		if(c.getPersonne().getId() == null) {
 			p = personneService.create(c.getPersonne());
 		}
 		else {
 			p = personneService.edit(c.getPersonne());
 		}
-		personneService.edit(c.getPersonne());
-		c.setPersonne(personneService.getById(c.getPersonne().getId()));
+		
+		c.setPersonne(p);
 		
 		return repository.save(c);
 	}
