@@ -1,5 +1,6 @@
 package com.materiel.gestion.apigestion.service.impl;
 
+import com.materiel.gestion.apigestion.exception.DeleteException;
 import com.materiel.gestion.apigestion.model.entite.Client;
 import com.materiel.gestion.apigestion.model.entite.Ville;
 import com.materiel.gestion.apigestion.repository.ClientRepository;
@@ -37,7 +38,14 @@ public class ClientService extends GettableService<Client> implements IClientSer
 
 		return repository.save(c);
 	}
-
+	@Override
+	@Transactional
+	public void delete(Client m) {
+		repository.delete(m);
+		if (repository.existsById(m.getId())){
+			throw new DeleteException("Impossible de supprimer le Client");
+		}
+	}
 	private Ville getOrCreateVille(Client c) {
 		Ville v;
 		if (c.getVille().getId() == null) {

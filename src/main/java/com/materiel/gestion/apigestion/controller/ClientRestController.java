@@ -53,7 +53,12 @@ public class ClientRestController {
         Client c = clientService.edit(client);
         return c;
     }
-    
+    @DeleteMapping("/{id}")
+    public void deleteClient(@PathVariable Long id){
+        Client c = new Client(id);
+        clientService.delete(c);
+    }
+
     /****** CONTACT ******/
     
     @GetMapping("/{id}/contacts")
@@ -114,11 +119,12 @@ public class ClientRestController {
         return ResponseEntity.created(new URI("api/v1/materiels/" + m.getId())).body(m);
     }
     
-    @PutMapping("/{id}/materiels")
-    public Materiel edit(@RequestBody Materiel materiel, @PathVariable Long id){
-        materiel.setId(id);
-        Materiel m = materielService.edit(materiel);
-        return m;
+    @PutMapping("/{id}/materiels/{idMateriel}")
+    public Materiel edit(@RequestBody Materiel materiel, @PathVariable Long id,  @PathVariable Long idMateriel){
+        Client m1 = new Client(id);
+        materiel.setClient(m1);
+        materiel.setId(idMateriel);
+        return materielService.edit(materiel);
     }
     
     @DeleteMapping("/{id}/materiels/{idMateriel}")
