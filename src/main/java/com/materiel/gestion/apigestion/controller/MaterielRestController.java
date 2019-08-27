@@ -46,14 +46,8 @@ public class MaterielRestController {
 		return ResponseEntity.created(new URI("api/v1/interfaces/" + i.getId())).body(i);
     }
 
-    @PostMapping("/{id}/materiels")
-    public ResponseEntity<Materiel> create(@RequestBody Materiel materiel, @PathVariable Long id) throws URISyntaxException {
-        // On ajoute l'id client au contact
-        materiel.setClient(new Client(id));
 
-        Materiel m = service.create(materiel);
-        return ResponseEntity.created(new URI("api/v1/materiels/" + m.getId())).body(m);
-    }
+
 }
     
 

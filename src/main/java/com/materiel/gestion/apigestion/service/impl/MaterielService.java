@@ -1,6 +1,7 @@
 package com.materiel.gestion.apigestion.service.impl;
 
 import com.materiel.gestion.apigestion.exception.CreationException;
+import com.materiel.gestion.apigestion.exception.DeleteException;
 import com.materiel.gestion.apigestion.model.entite.Client;
 import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.model.entite.TypeMateriel;
@@ -38,5 +39,14 @@ public class MaterielService extends GettableService<Materiel> implements IMater
 	    m.setTypeMateriel(t);
 	    m.setClient(clientService.getById(m.getClient().getId()));
 	    return repository.save(m);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Materiel m) {
+        repository.delete(m);
+        if (repository.existsById(m.getId())){
+            throw new DeleteException("Impossible de supprimer le materiel");
+        }
     }
 }

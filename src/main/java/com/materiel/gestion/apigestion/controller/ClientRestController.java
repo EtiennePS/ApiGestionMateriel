@@ -2,19 +2,15 @@ package com.materiel.gestion.apigestion.controller;
 
 import com.materiel.gestion.apigestion.model.entite.Client;
 import com.materiel.gestion.apigestion.model.entite.Contact;
+import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.service.IClientService;
 import com.materiel.gestion.apigestion.service.IContactService;
 
+import com.materiel.gestion.apigestion.service.IMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -31,6 +27,9 @@ public class ClientRestController {
 
     @Autowired
     IClientService clientService;
+
+    @Autowired
+    IMaterielService materielService;
 
     @GetMapping("/{id}")
     public Client getById(@PathVariable Long id) {
@@ -71,6 +70,20 @@ public class ClientRestController {
         client.setId(id);
         Client c = clientService.edit(client);
         return c;
+    }
+    @PostMapping("/{id}/materiels")
+    public ResponseEntity<Materiel> create(@RequestBody Materiel materiel, @PathVariable Long id) throws URISyntaxException {
+        // On ajoute l'id client au contact
+        materiel.setClient(new Client(id));
+
+        Materiel m = materielService.create(materiel);
+        return ResponseEntity.created(new URI("api/v1/materiels/" + m.getId())).body(m);
+    }
+    @DeleteMapping("/{id}/materiels")
+    public void deleteMateriel(@RequestBody Materiel materiel, @PathVariable Long id){
+        materiel.setClient(new Client(id));
+        materielService.delete(materiel);
+
     }
 
 }
