@@ -63,8 +63,8 @@ public class ClientRestController {
     
     @GetMapping("/{id}/contacts/{idContact}")
     public Contact getAllContacts(@PathVariable Long id, @PathVariable Long idContact) {
-		return contactService.getById(idContact, id);
-	}
+        return contactService.getById(idContact, id);
+    }
     
     @PostMapping("/{id}/contacts")
 	public ResponseEntity<Contact> createContact(@RequestBody Contact contact, @PathVariable Long id) throws URISyntaxException {
@@ -95,7 +95,17 @@ public class ClientRestController {
     }
 
     /****** MATERIEL ******/
-    
+
+    @GetMapping("/{id}/materiels")
+    public List<Materiel> getAllMateriels(@PathVariable Long id) {
+        return materielService.getByClient(id);
+    }
+
+    @GetMapping("/{id}/materiels/{idMateriel}")
+    public Materiel getAllMateriels(@PathVariable Long id, @PathVariable Long idMateriel) {
+        return materielService.getById(idMateriel, id);
+    }
+
     @PostMapping("/{id}/materiels")
     public ResponseEntity<Materiel> create(@RequestBody Materiel materiel, @PathVariable Long id) throws URISyntaxException {
         // On ajoute l'id client au contact
