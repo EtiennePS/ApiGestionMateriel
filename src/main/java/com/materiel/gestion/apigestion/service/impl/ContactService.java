@@ -1,5 +1,6 @@
 package com.materiel.gestion.apigestion.service.impl;
 
+import com.materiel.gestion.apigestion.exception.DeleteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,7 +80,10 @@ public class ContactService extends GettableService<Contact> implements IContact
 	@Transactional
 	public void delete(Contact c) {
 		repository.delete(c);
-		return !repository.existsById(c.getId());
+
+		if (repository.existsById(c.getId())){
+			throw new DeleteException("Impossible de supprimer le materiel");
+		}
 	}
 	
 }
