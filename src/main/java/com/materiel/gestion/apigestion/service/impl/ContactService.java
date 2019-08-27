@@ -1,14 +1,17 @@
 package com.materiel.gestion.apigestion.service.impl;
 
 import com.materiel.gestion.apigestion.exception.DeleteException;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.materiel.gestion.apigestion.exception.CreationException;
 import com.materiel.gestion.apigestion.exception.DataOwnerException;
+import com.materiel.gestion.apigestion.model.entite.Client;
 import com.materiel.gestion.apigestion.model.entite.Contact;
-import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.model.entite.Personne;
 import com.materiel.gestion.apigestion.repository.ContactRepository;
 import com.materiel.gestion.apigestion.service.IContactService;
@@ -90,6 +93,19 @@ public class ContactService extends GettableService<Contact> implements IContact
 			throw new DeleteException("Impossible de supprimer le contact");
 		}
 	}
+
+	@Override
+	public List<Contact> getByClient(Long idClient) {
+		return repository.findByClient(idClient);
+	}
+	
+	@Override
+	public Contact getById(Long idContact, Long idClient) {
+		checkClient(createContact(idContact, idClient));
+		return this.getById(idContact);
+	}
+	
+	
 	
 	private void checkClient(Contact c){
         Contact contact = repository.getOne(c.getId());
@@ -97,5 +113,12 @@ public class ContactService extends GettableService<Contact> implements IContact
             throw new DataOwnerException("Le contact n'appartient pas à ce client");
         }
     }
+	
+	private Contact createContact(Long idContact, Long idClient) {
+		Client cl = new Client(idClient);
+		Contact c = new Contact(idContact);
+		c.setClient(cl);
+		return c;
+	}
 	
 }

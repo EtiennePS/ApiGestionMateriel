@@ -89,6 +89,7 @@ public class ClientRestController {
         Materiel m = materielService.create(materiel);
         return ResponseEntity.created(new URI("api/v1/materiels/" + m.getId())).body(m);
     }
+    
     @DeleteMapping("/{id}/materiels")
     public void deleteMateriel(@RequestBody Materiel materiel, @PathVariable Long id){
         materiel.setClient(new Client(id));
