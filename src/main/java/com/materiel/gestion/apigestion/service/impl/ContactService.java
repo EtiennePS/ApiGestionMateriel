@@ -51,6 +51,7 @@ public class ContactService extends GettableService<Contact> implements IContact
 	}
 
 	@Override
+	@Transactional
 	public Contact edit(Contact c) {
 		
 		Personne p;
@@ -61,7 +62,7 @@ public class ContactService extends GettableService<Contact> implements IContact
 		//On récupère la nouvelle fonction du contact grâce à l'id fournit, en ignorant le libellé fournit
 		c.setFonction(fonctionService.getById(c.getFonction().getId()));
 
-		// Si la personne lié au contact n'existe pas encore, il faut la créer
+		// Si la personne lié au contact n'existe pas encore, il faut la créer, sinon on le modifie
 		if(c.getPersonne().getId() == null) {
 			p = personneService.create(c.getPersonne());
 		}
@@ -72,6 +73,13 @@ public class ContactService extends GettableService<Contact> implements IContact
 		c.setPersonne(personneService.getById(c.getPersonne().getId()));
 		
 		return repository.save(c);
+	}
+
+	@Override
+	@Transactional
+	public void delete(Contact c) {
+		repository.delete(c);
+		return !repository.existsById(c.getId());
 	}
 	
 }
