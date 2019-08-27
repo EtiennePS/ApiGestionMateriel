@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.materiel.gestion.apigestion.exception.CreationException;
+import com.materiel.gestion.apigestion.exception.DataOwnerException;
 import com.materiel.gestion.apigestion.model.entite.Contact;
+import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.model.entite.Personne;
 import com.materiel.gestion.apigestion.repository.ContactRepository;
 import com.materiel.gestion.apigestion.service.IContactService;
@@ -57,6 +59,8 @@ public class ContactService extends GettableService<Contact> implements IContact
 		
 		Personne p;
 		
+		checkClient(c);
+		
 		//On autorise pas la modification du client, donc on écrase le client fournit
 		c.setClient(clientService.getById(c.getClient().getId()));
 		
@@ -79,11 +83,19 @@ public class ContactService extends GettableService<Contact> implements IContact
 	@Override
 	@Transactional
 	public void delete(Contact c) {
+		checkClient(c);
 		repository.delete(c);
 
 		if (repository.existsById(c.getId())){
-			throw new DeleteException("Impossible de supprimer le materiel");
+			throw new DeleteException("Impossible de supprimer le contact");
 		}
 	}
+	
+	private void checkClient(Contact c){
+        Contact contact = repository.getOne(c.getId());
+        if (contact.getClient().getId()!= c.getClient().getId()){
+            throw new DataOwnerException("Le contact n'appartient pas à ce client");
+        }
+    }
 	
 }

@@ -20,6 +20,9 @@ import lombok.Data;
 @Relation(collectionRelation = "contacts")
 public class Contact {
 	
+	public Contact() { }
+	public Contact(Long id) { setId(id); }
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id", length=11, nullable=false)

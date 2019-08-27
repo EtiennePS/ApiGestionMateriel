@@ -48,7 +48,7 @@ public class ClientRestController {
     }
     
     @PostMapping("/{id}/contacts")
-	public ResponseEntity<Contact> create(@RequestBody Contact contact, @PathVariable Long id) throws URISyntaxException {
+	public ResponseEntity<Contact> createContact(@RequestBody Contact contact, @PathVariable Long id) throws URISyntaxException {
     	// On ajoute l'id client au contact
     	contact.setClient(new Client(id));
     	
@@ -57,12 +57,21 @@ public class ClientRestController {
 	}
     
     @PutMapping("/{id}/contacts/{idContact}")
-    public Contact edit(@RequestBody Contact contact, @PathVariable Long id, @PathVariable Long idContact) {
+    public Contact editContact(@RequestBody Contact contact, @PathVariable Long id, @PathVariable Long idContact) {
     	contact.setClient(new Client(id));
     	contact.setId(idContact);
     	
     	Contact c = contactService.edit(contact);
     	return c;
+    }
+    
+    @DeleteMapping("/{id}/contacts/{idContact}")
+    public void deleteContact(@PathVariable Long id, @PathVariable Long idContact) {
+    	Client cl = new Client(id);
+    	Contact c = new Contact(idContact);
+    	c.setClient(cl);
+    	
+    	contactService.delete(c);
     }
 
     @PutMapping("/{id}")
@@ -71,6 +80,7 @@ public class ClientRestController {
         Client c = clientService.edit(client);
         return c;
     }
+    
     @PostMapping("/{id}/materiels")
     public ResponseEntity<Materiel> create(@RequestBody Materiel materiel, @PathVariable Long id) throws URISyntaxException {
         // On ajoute l'id client au contact
