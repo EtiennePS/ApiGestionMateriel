@@ -1,5 +1,7 @@
 package com.materiel.gestion.apigestion.model.entite;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,13 +9,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
 @Data @Entity
 @Table (name = "interface")
 public class Interface {
+	
+	public Interface() { }
+	public Interface(Long id) { setId(id); }
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
@@ -33,9 +43,7 @@ public class Interface {
 	@ManyToOne
 	@JoinColumn(name = "idmateriel", nullable = false)
 	private Materiel materiel;
-
-	public Interface getInterface() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+    @OneToOne(mappedBy = "interf")
+    private AdresseIp adresse;
 }

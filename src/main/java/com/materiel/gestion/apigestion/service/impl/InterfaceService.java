@@ -21,15 +21,15 @@ public class InterfaceService extends GettableService<Interface> implements IInt
 	private ITypeInterfaceService typeInterfaceService;
 
 
-	  @Override
-	    @Transactional
-	    public Interface create(Interface i) {
-	        if (i.getId() != null){
-	            throw new CreationException("Interdiction de mettre un id customisé pour le materiel");
-	        }
-	        i.setTypeif(typeInterfaceService.getById(i.getTypeif().getId()));
-			return repository.save(i);
-		 }
-	    }
+	@Override
+    @Transactional
+    public Interface create(Interface i) {
+        if (i.getId() != null){
+            throw new CreationException("Interdiction de mettre un id customisé pour le materiel");
+        }
+        i.setTypeif(typeInterfaceService.getById(i.getTypeif().getId()));
+		return repository.save(i);
+	 }
+}
 
 
