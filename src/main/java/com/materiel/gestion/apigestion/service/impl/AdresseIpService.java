@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.materiel.gestion.apigestion.exception.CreationException;
 import com.materiel.gestion.apigestion.model.entite.AdresseIp;
+import com.materiel.gestion.apigestion.model.entite.Contact;
 import com.materiel.gestion.apigestion.model.entite.Interface;
 import com.materiel.gestion.apigestion.repository.AdresseIpRepository;
 import com.materiel.gestion.apigestion.service.IAdresseIpService;
@@ -40,4 +41,9 @@ public AdresseIp create(AdresseIp adr) {
 	 adr.setInterf(interfaceService.getById(adr.getInterf().getId()));
 	return repository.save(adr);
  }
+
+@Override
+public AdresseIp getById(Long idInterf) {
+	return repository.findByInterf(interfaceService.getById(idInterf));
+}
 }

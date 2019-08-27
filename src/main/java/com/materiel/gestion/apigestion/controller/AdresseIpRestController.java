@@ -28,5 +28,4 @@ public class AdresseIpRestController {
 	public List<AdresseIp> getAll() {
 		return service.getAll();
 	}
-	
 }

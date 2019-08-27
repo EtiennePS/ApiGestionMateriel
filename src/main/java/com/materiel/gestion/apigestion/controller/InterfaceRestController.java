@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.materiel.gestion.apigestion.model.entite.AdresseIp;
+import com.materiel.gestion.apigestion.model.entite.Contact;
 import com.materiel.gestion.apigestion.model.entite.Interface;
 import com.materiel.gestion.apigestion.service.IAdresseIpService;
 import com.materiel.gestion.apigestion.service.IInterfaceService;
@@ -46,5 +47,11 @@ public class InterfaceRestController {
 		AdresseIp a = adresseIpService.create(adresseIp);
 		return ResponseEntity.created(new URI("api/v1/adresseips/" + a.getId())).body(a);
 	}
+	
+	@GetMapping("/{id}/adresseips")
+	public AdresseIp getAdresseIp(@PathVariable Long id) {
+		return adresseIpService.getById(id);
+	}
 }
+
 
