@@ -5,12 +5,16 @@ import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.service.IMaterielService;
 import com.materiel.gestion.apigestion.service.IInterfaceService;
 import com.materiel.gestion.apigestion.model.entite.Client;
+import com.materiel.gestion.apigestion.model.entite.Contact;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,9 +49,20 @@ public class MaterielRestController {
     	Interface i = interfaceService.create(in);
 		return ResponseEntity.created(new URI("api/v1/interfaces/" + i.getId())).body(i);
     }
-
-
-
-}
     
+    @PutMapping("/{id}/interface/{idInterface}")
+    public Interface edit(@RequestBody Interface i, @PathVariable Long id, @PathVariable Long idInterface) {
+    	i.setMateriel(new Materiel(id));
+    	i.setId(id);
+        return interfaceService.edit(i);
+    }
+    @DeleteMapping("/{id}/interface/{idInterface}")
+    public void deleteInterface(@PathVariable Long id, @PathVariable Long idInterface) {
+    Materiel m = new Materiel(id);
+    Interface i = new Interface(idInterface);
+    i.setMateriel(m);
+    
+    interfaceService.delete(i);
+}
+}   
 

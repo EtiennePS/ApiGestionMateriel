@@ -48,4 +48,6 @@ public class Interface {
 	
     @OneToOne(mappedBy = "interf")
     private AdresseIp adresse;
+
+
 }

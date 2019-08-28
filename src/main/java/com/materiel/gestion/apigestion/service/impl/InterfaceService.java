@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.materiel.gestion.apigestion.exception.CreationException;
+import com.materiel.gestion.apigestion.exception.DataOwnerException;
+import com.materiel.gestion.apigestion.exception.DeleteException;
 import com.materiel.gestion.apigestion.exception.EditionException;
 import com.materiel.gestion.apigestion.model.entite.AdresseIp;
+import com.materiel.gestion.apigestion.model.entite.Contact;
 import com.materiel.gestion.apigestion.model.entite.Interface;
 import com.materiel.gestion.apigestion.repository.InterfaceRepository;
 import com.materiel.gestion.apigestion.service.IInterfaceService;
@@ -36,6 +39,7 @@ public class InterfaceService extends GettableService<Interface> implements IInt
 	@Override
 	@Transactional
 	public Interface edit(Interface i) { 
+		checkMateriel(i);
 		if(i.getId() == null) {
 			throw new EditionException("Impossible  de modifier une Interface sans id.");
 		}
@@ -44,7 +48,25 @@ public class InterfaceService extends GettableService<Interface> implements IInt
 		}
 		return repository.save(i);
 	}
+	
+	@Override
+	@Transactional
+	public void delete(Interface i) {
+		checkMateriel(i);
+		repository.delete(i);
+		
+		if (repository.existsById(i.getId())){
+			throw new DeleteException("Impossible de supprimer l'interface");
+		}
 	}
+		
+		private void checkMateriel(Interface i){
+	        Interface interf = repository.getOne(i.getId());
+	        if (interf.getMateriel().getId()!= i.getMateriel().getId()){
+	            throw new DataOwnerException("L'interface n'appartient pas à ce materiel");
+	        }
+		}
+}
 
 
 

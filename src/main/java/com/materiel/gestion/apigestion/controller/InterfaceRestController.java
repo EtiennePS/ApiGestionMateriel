@@ -62,15 +62,9 @@ public class InterfaceRestController {
 	@PutMapping("/{id}/adresseips")
     public AdresseIp edit(@RequestBody AdresseIp adr, @PathVariable Long id) {
         adr.setInterf(new Interface(id));
-        
         return adresseIpService.edit(adr);
     }
 
-	@PutMapping("/{id}/interf")
-    public Interface edit(@RequestBody Interface i, @PathVariable Long id) {
-        return service.edit(i);
-    }
-	
 	@DeleteMapping("/{id}/adresseips")
     public void deleteAdresseIp(@PathVariable Long id){
 		Interface interf = new Interface(id);
