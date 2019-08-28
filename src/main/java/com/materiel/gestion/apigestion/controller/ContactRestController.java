@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping(path = "api/v1/contacts", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @Api(tags="Contact Rest API")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ContactRestController {
 	
 	@Autowired
