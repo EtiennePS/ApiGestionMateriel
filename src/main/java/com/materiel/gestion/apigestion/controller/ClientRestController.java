@@ -85,9 +85,7 @@ public class ClientRestController {
     	contact.setClient(new Client(id));
     	contact.setId(idContact);
     	
-    	Contact c = contactService.edit(contact);
-    	System.out.println("Edition terminée");
-    	return c;
+    	return contactService.edit(contact);
     }
     
     @DeleteMapping("/{id}/contacts/{idContact}")
