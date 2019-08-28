@@ -7,7 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.materiel.gestion.apigestion.exception.CreationException;
+import com.materiel.gestion.apigestion.exception.DataOwnerException;
+import com.materiel.gestion.apigestion.exception.DeleteException;
+import com.materiel.gestion.apigestion.exception.EditionException;
 import com.materiel.gestion.apigestion.model.entite.AdresseIp;
 import com.materiel.gestion.apigestion.model.entite.Contact;
 import com.materiel.gestion.apigestion.model.entite.Interface;
@@ -46,4 +50,36 @@ public AdresseIp create(AdresseIp adr) {
 public AdresseIp getById(Long idInterf) {
 	return repository.findByInterf(interfaceService.getById(idInterf));
 }
+
+@Override
+@Transactional
+public AdresseIp edit(AdresseIp adr) { 
+	Interface interf = interfaceService.getById(adr.getInterf().getId());
+	adr.setId(getAdresseIpId(interf));
+	adr.setInterf(interf);
+	adr.setTypeAffectation(typeAffectationService.getById(adr.getTypeAffectation().getId()));
+	
+	return repository.save(adr);
+}
+
+
+@Override
+@Transactional
+public void delete(AdresseIp adr) {
+	Interface interf = interfaceService.getById(adr.getInterf().getId());
+	adr.setId(getAdresseIpId(interf));
+	repository.delete(adr);
+
+	if (repository.existsById(adr.getId())){
+		throw new DeleteException("Impossible de supprimer l'adresse ip");
+	}
+}
+
+private Long getAdresseIpId(Interface interf) {
+	if (interf.getAdresse() == null){
+		throw new DataOwnerException("l'interface n'a pas d'adresse ip");
+	}
+	return interf.getAdresse().getId();
+}
+	
 }
