@@ -1,7 +1,10 @@
 package com.materiel.gestion.apigestion.model.entite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -32,4 +35,7 @@ public class Materiel {
     @ManyToOne
     @JoinColumn(name = "idtype", nullable = false)
     private TypeMateriel typeMateriel;
+    
+	@OneToMany(mappedBy="materiel")
+	private List<Interface> interfaces;
 }
