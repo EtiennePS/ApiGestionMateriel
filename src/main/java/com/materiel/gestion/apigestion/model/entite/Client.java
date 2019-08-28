@@ -33,11 +33,9 @@ public class Client {
     @JoinColumn(name = "idcpville", nullable = true)
     private Ville ville;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Contact> contacts;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Materiel> materiels;
 

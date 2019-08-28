@@ -41,6 +41,7 @@ public class Interface {
 	@JoinColumn(name = "idtype", nullable = false)
 	private TypeInterface typeif;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "idmateriel", nullable = false)
 	private Materiel materiel;

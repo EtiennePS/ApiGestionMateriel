@@ -1,5 +1,6 @@
 package com.materiel.gestion.apigestion.model.entite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -24,7 +25,8 @@ public class Materiel {
 
     @Column(name = "numserie",length = 30,nullable = false)
     private String numSerie;
-
+    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idclient", nullable = false)
     private Client client;
