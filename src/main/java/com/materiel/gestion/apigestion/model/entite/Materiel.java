@@ -27,7 +27,7 @@ public class Materiel {
 
     @Column(name = "numserie",length = 30,nullable = false)
     private String numSerie;
-    
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idclient", nullable = false)
@@ -36,7 +36,7 @@ public class Materiel {
     @ManyToOne
     @JoinColumn(name = "idtype", nullable = false)
     private TypeMateriel typeMateriel;
-    
+
 	@OneToMany(mappedBy="materiel")
 	private List<Interface> interfaces;
 }
