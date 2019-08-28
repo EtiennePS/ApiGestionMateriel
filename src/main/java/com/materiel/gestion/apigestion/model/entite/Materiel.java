@@ -23,7 +23,7 @@ public class Materiel {
     private String libelle;
 
     @Column(name = "numserie",length = 30,nullable = false)
-    private String numserie;
+    private String numSerie;
 
     @ManyToOne
     @JoinColumn(name = "idclient", nullable = false)
