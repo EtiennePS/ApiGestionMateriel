@@ -27,7 +27,9 @@ public class FonctionRestController {
 	
 	@GetMapping("/")
 	public List<Fonction> getAll() {
-		return service.getAll();
+		List<Fonction> result = service.getAll();
+		System.out.println(result.get(0).getLibelle());
+		return result;
 	}
 	
 }
