@@ -23,7 +23,7 @@ public class FonctionRestController {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/")
+	@GetMapping
 	public List<Fonction> getAll() {
 		List<Fonction> result = service.getAll();
 		System.out.println(result.get(0).getLibelle());

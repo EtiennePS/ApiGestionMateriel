@@ -22,7 +22,7 @@ public class AdresseIpRestController {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/")
+	@GetMapping
 	public List<AdresseIp> getAll() {
 		return service.getAll();
 	}

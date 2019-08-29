@@ -21,7 +21,7 @@ public class TypeMaterielRestController {
         return service.getById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<TypeMateriel> getAll() {
         return service.getAll();
     }

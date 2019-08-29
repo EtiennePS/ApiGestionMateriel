@@ -29,7 +29,7 @@ public class VilleRestController {
         return service.getById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Ville> getAll() {
         return service.getAll();
     }

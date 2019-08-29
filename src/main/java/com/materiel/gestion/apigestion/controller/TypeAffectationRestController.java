@@ -23,7 +23,7 @@ public class TypeAffectationRestController {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/")
+	@GetMapping
 	public List<TypeAffectation> getAll() {
 		return service.getAll();
 	}

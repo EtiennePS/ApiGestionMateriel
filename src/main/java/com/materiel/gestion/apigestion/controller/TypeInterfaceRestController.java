@@ -25,7 +25,7 @@ public class TypeInterfaceRestController {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/")
+	@GetMapping
 	public List<TypeInterface> getAll() {
 		return service.getAll();
 	}

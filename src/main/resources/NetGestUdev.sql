@@ -71,7 +71,7 @@ CREATE TABLE appartient(
     id INT NOT NULL PRIMARY KEY auto_increment,
     idpersonne INT NOT NULL,
     idfonction INT NOT NULL,
-    idclient INT NOT NULL, 
+    idclient INT NOT NULL,
     CONSTRAINT FK_APP_CLI FOREIGN KEY (idclient) REFERENCES client(id),
     CONSTRAINT FK_APP_FCT FOREIGN KEY (idfonction) REFERENCES fonction(id),
     CONSTRAINT FK_APP_PRS FOREIGN KEY (idpersonne) REFERENCES personne(id)

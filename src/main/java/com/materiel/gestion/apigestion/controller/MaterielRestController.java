@@ -31,7 +31,7 @@ public class MaterielRestController {
         return service.getById(id);
     }
 
-    @GetMapping("")
+    @GetMapping
     public List<Materiel> getAll() {
         return service.getAll();
     }

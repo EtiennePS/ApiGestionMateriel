@@ -23,7 +23,7 @@ public class PersonneRestController {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/")
+	@GetMapping
 	public List<Personne> getAll() {
 		return service.getAll();
 	}
