@@ -4,16 +4,14 @@ import com.materiel.gestion.apigestion.model.entite.TypeMateriel;
 import com.materiel.gestion.apigestion.service.ITypeMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
 @RequestMapping(path = "api/v1/typemateriels", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TypeMaterielRestController {
     @Autowired
     ITypeMaterielService service;
