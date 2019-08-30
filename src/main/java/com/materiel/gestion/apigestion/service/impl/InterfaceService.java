@@ -1,5 +1,7 @@
 package com.materiel.gestion.apigestion.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,10 @@ import com.materiel.gestion.apigestion.exception.EditionException;
 import com.materiel.gestion.apigestion.model.entite.AdresseIp;
 import com.materiel.gestion.apigestion.model.entite.Contact;
 import com.materiel.gestion.apigestion.model.entite.Interface;
+import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.repository.InterfaceRepository;
 import com.materiel.gestion.apigestion.service.IInterfaceService;
+import com.materiel.gestion.apigestion.service.IMaterielService;
 import com.materiel.gestion.apigestion.service.ITypeInterfaceService;
 
 @Service
@@ -24,6 +28,9 @@ public class InterfaceService extends GettableService<Interface> implements IInt
 	
 	@Autowired
 	private ITypeInterfaceService typeInterfaceService;
+	
+	@Autowired 
+	private IMaterielService materielService;
 
 
 	@Override
@@ -60,12 +67,18 @@ public class InterfaceService extends GettableService<Interface> implements IInt
 		}
 	}
 		
-		private void checkMateriel(Interface i){
-	        Interface interf = repository.getOne(i.getId());
-	        if (interf.getMateriel().getId()!= i.getMateriel().getId()){
-	            throw new DataOwnerException("L'interface n'appartient pas à ce materiel");
-	        }
-		}
+	private void checkMateriel(Interface i){
+        Interface interf = repository.getOne(i.getId());
+        if (interf.getMateriel().getId()!= i.getMateriel().getId()){
+            throw new DataOwnerException("L'interface n'appartient pas à ce materiel");
+        }
+	}
+
+	@Override
+	public List<Interface> getByMateriel(Long idMateriel) {
+		Materiel m = materielService.getById(idMateriel);
+		return this.repository.findByMateriel(m);
+	}
 }
 
 

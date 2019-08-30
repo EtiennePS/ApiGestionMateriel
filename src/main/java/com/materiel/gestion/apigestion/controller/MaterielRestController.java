@@ -42,6 +42,11 @@ public class MaterielRestController {
         return service.getAll();
     }
     
+    @GetMapping("/{id}/interfaces")
+    public List<Interface> getAllInterface(@PathVariable Long id) {
+    	return interfaceService.getByMateriel(id);
+    }
+    
     @PostMapping("/{id}/interfaces")
     public ResponseEntity<Interface> create(@RequestBody Interface in, @PathVariable Long id) throws URISyntaxException {
     	in.setMateriel(new Materiel(id));
@@ -50,19 +55,19 @@ public class MaterielRestController {
 		return ResponseEntity.created(new URI("api/v1/interfaces/" + i.getId())).body(i);
     }
     
-    @PutMapping("/{id}/interface/{idInterface}")
+    @PutMapping("/{id}/interfaces/{idInterface}")
     public Interface edit(@RequestBody Interface i, @PathVariable Long id, @PathVariable Long idInterface) {
     	i.setMateriel(new Materiel(id));
     	i.setId(id);
         return interfaceService.edit(i);
     }
-    @DeleteMapping("/{id}/interface/{idInterface}")
+    @DeleteMapping("/{id}/interfaces/{idInterface}")
     public void deleteInterface(@PathVariable Long id, @PathVariable Long idInterface) {
-    Materiel m = new Materiel(id);
-    Interface i = new Interface(idInterface);
-    i.setMateriel(m);
-    
-    interfaceService.delete(i);
-}
+	    Materiel m = new Materiel(id);
+	    Interface i = new Interface(idInterface);
+	    i.setMateriel(m);
+	    
+	    interfaceService.delete(i);
+    }
 }   
 
