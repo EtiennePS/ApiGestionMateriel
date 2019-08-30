@@ -4,16 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.materiel.gestion.apigestion.model.entite.Personne;
 import com.materiel.gestion.apigestion.service.IPersonneService;
 
 @RestController
 @RequestMapping(path = "api/v1/personnes", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 //@Api(tags="Personne Rest API")
 public class PersonneRestController {
 	
@@ -25,7 +23,7 @@ public class PersonneRestController {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/")
+	@GetMapping
 	public List<Personne> getAll() {
 		return service.getAll();
 	}

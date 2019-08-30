@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/clients", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ClientRestController {
     @Autowired
     IClientService service;

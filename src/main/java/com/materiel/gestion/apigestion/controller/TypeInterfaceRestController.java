@@ -5,10 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.materiel.gestion.apigestion.model.entite.Interface;
 import com.materiel.gestion.apigestion.model.entite.TypeInterface;
@@ -17,6 +14,7 @@ import com.materiel.gestion.apigestion.service.ITypeInterfaceService;
 
 @RestController
 @RequestMapping(path = "api/v1/typesinterfaces", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TypeInterfaceRestController {
 
 	@Autowired
@@ -27,7 +25,7 @@ public class TypeInterfaceRestController {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/")
+	@GetMapping
 	public List<TypeInterface> getAll() {
 		return service.getAll();
 	}

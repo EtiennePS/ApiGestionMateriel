@@ -4,16 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.materiel.gestion.apigestion.model.entite.TypeAffectation;
 import com.materiel.gestion.apigestion.service.ITypeAffectationService;
 
 @RestController
 @RequestMapping(path = "api/v1/typeaffectations", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 //@Api(tags="Type Affectation Rest API")
 public class TypeAffectationRestController {
 	
@@ -25,7 +23,7 @@ public class TypeAffectationRestController {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/")
+	@GetMapping
 	public List<TypeAffectation> getAll() {
 		return service.getAll();
 	}
