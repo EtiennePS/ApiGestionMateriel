@@ -9,6 +9,10 @@ import com.materiel.gestion.apigestion.model.entite.TypeMateriel;
 import com.materiel.gestion.apigestion.repository.MaterielRepository;
 import com.materiel.gestion.apigestion.service.IMaterielService;
 import com.materiel.gestion.apigestion.service.impl.TypeMaterielService;
+
+import net.glxn.qrgen.core.image.ImageType;
+import net.glxn.qrgen.javase.QRCode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +28,6 @@ public class MaterielService extends GettableService<Materiel> implements IMater
     TypeMaterielService typeMaterielService;
     @Autowired
     ClientService clientService;
-
-
-
-
 
     @Override
     @Transactional
@@ -72,8 +72,15 @@ public class MaterielService extends GettableService<Materiel> implements IMater
 
     @Override
     public Materiel getById(Long idMateriel, Long idClient) {
-        checkClient(createMateriel(idMateriel, idClient));
-        return this.getById(idMateriel);
+        checkClient(buildMaterielObject(idMateriel, idClient));
+        return null;
+    }
+    
+    @Override
+    public byte[] getQrCodeById(Long idMateriel, Long idClient) {
+        checkClient(buildMaterielObject(idMateriel, idClient));
+        String uriApp = "gestionMateriel/clients/" + idClient + "/materiels/" + idMateriel;
+        return QRCode.from(uriApp).withSize(200, 200).to(ImageType.PNG).stream().toByteArray();
     }
 
     private void checkClient(Materiel m){
@@ -82,7 +89,8 @@ public class MaterielService extends GettableService<Materiel> implements IMater
             throw new DataOwnerException("Le materiel n'appartient pas à ce client");
         }
     }
-    private Materiel createMateriel(Long idMateriel, Long idClient) {
+    
+    private Materiel buildMaterielObject(Long idMateriel, Long idClient) {
         Client m1 = new Client(idClient);
         Materiel m = new Materiel(idMateriel);
         m.setClient(m1);

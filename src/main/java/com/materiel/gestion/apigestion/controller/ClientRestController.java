@@ -106,8 +106,13 @@ public class ClientRestController {
     }
 
     @GetMapping("/{id}/materiels/{idMateriel}")
-    public Materiel getAllMateriels(@PathVariable Long id, @PathVariable Long idMateriel) {
+    public Materiel getMaterielById(@PathVariable Long id, @PathVariable Long idMateriel) {
         return materielService.getById(idMateriel, id);
+    }
+    
+    @GetMapping(value="/{id}/materiels/{idMateriel}/qrcode", produces=MediaType.IMAGE_PNG_VALUE)
+    public byte[] getQrCode(@PathVariable Long id, @PathVariable Long idMateriel) {
+    	return materielService.getQrCodeById(idMateriel, id);
     }
 
     @PostMapping("/{id}/materiels")

@@ -30,7 +30,7 @@ public class MaterielRestController {
     public Materiel getById(@PathVariable Long id) {
         return service.getById(id);
     }
-
+    
     @GetMapping
     public List<Materiel> getAll() {
         return service.getAll();
