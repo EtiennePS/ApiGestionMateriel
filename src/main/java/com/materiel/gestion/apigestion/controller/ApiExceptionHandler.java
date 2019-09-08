@@ -1,12 +1,16 @@
 package com.materiel.gestion.apigestion.controller;
 
 import com.materiel.gestion.apigestion.exception.CreationException;
+import com.materiel.gestion.apigestion.exception.EditionException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.materiel.gestion.apigestion.exception.NoSuchEntityException;
 import com.materiel.gestion.apigestion.model.dto.ErrorDto;
@@ -28,8 +32,13 @@ public class ApiExceptionHandler {
 
 		if (ex instanceof NoSuchEntityException || ex instanceof NoHandlerFoundException) {
 			 status = HttpStatus.NOT_FOUND;
-		} else if (ex instanceof HttpMessageNotReadableException
-		 || ex instanceof HttpRequestMethodNotSupportedException || ex instanceof CreationException){
+		} 
+		else if (ex instanceof HttpMessageNotReadableException || 
+				ex instanceof HttpRequestMethodNotSupportedException || 
+				ex instanceof CreationException || 
+				ex instanceof EditionException || 
+				ex instanceof MissingServletRequestParameterException ||
+				ex instanceof MethodArgumentTypeMismatchException) {
 			 status = HttpStatus.BAD_REQUEST;
 
 		}/* else if (ex instanceof ExpiredJwtException || ex instanceof AuthenticationException) {
@@ -38,9 +47,7 @@ public class ApiExceptionHandler {
 		}*/
 		else {
 			 status = HttpStatus.INTERNAL_SERVER_ERROR;
-
 		}
-
 
 		 return status;
 	}

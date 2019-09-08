@@ -3,9 +3,12 @@ package com.materiel.gestion.apigestion.controller;
 import com.materiel.gestion.apigestion.model.entite.Interface;
 import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.service.IMaterielService;
+import com.materiel.gestion.apigestion.service.impl.IncidentService;
+import com.materiel.gestion.apigestion.service.IIncidentService;
 import com.materiel.gestion.apigestion.service.IInterfaceService;
 import com.materiel.gestion.apigestion.model.entite.Client;
 import com.materiel.gestion.apigestion.model.entite.Contact;
+import com.materiel.gestion.apigestion.model.entite.Incident;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,6 +28,9 @@ public class MaterielRestController {
     
     @Autowired
     IInterfaceService interfaceService;
+    
+    @Autowired
+    IIncidentService incidentService;
 
     @GetMapping("/{id}")
     public Materiel getById(@PathVariable Long id) {
@@ -35,6 +41,8 @@ public class MaterielRestController {
     public List<Materiel> getAll() {
         return service.getAll();
     }
+    
+    /****** INTERFACES ******/
     
     @GetMapping("/{id}/interfaces")
     public List<Interface> getAllInterface(@PathVariable Long id) {
@@ -55,6 +63,7 @@ public class MaterielRestController {
     	i.setId(id);
         return interfaceService.edit(i);
     }
+    
     @DeleteMapping("/{id}/interfaces/{idInterface}")
     public void deleteInterface(@PathVariable Long id, @PathVariable Long idInterface) {
 	    Materiel m = new Materiel(id);
@@ -63,5 +72,37 @@ public class MaterielRestController {
 	    
 	    interfaceService.delete(i);
     }
+    
+    /****** INCIDENTS ******/
+    
+    @GetMapping("/{id}/incidents")
+    public List<Incident> getAllIncidents(@PathVariable Long id) {
+    	return incidentService.getByMateriel(id);
+    }
+    
+    @GetMapping("/{id}/incidents/{idIncident}")
+    public Incident getIncidentById(@PathVariable Long id, @PathVariable Long idIncident) {
+    	return incidentService.getById(id, idIncident);
+    }
+    
+    @PostMapping("/{id}/incidents")
+    public ResponseEntity<Incident> createIncident(@PathVariable Long id, @RequestBody Incident inc) throws URISyntaxException {
+    	inc.setMateriel(new Materiel(id));
+    	Incident i = incidentService.create(inc);
+    	return ResponseEntity.created(new URI("api/v1/materiels/" + i.getMateriel().getId() + "/incidents/"+ i.getId())).body(inc);
+    }
+    
+    @PutMapping("/{id}/incidents/{idIncident}")
+    public Incident editIncident(@PathVariable Long id, @PathVariable Long idIncident, @RequestBody Incident i) {
+    	i.setId(idIncident);
+    	i.setMateriel(new Materiel(id));
+    	return incidentService.edit(i);
+    }
+    
+    @PutMapping("/{id}/incidents/{idIncident}/clore")
+    public Incident clore(@PathVariable Long id, @PathVariable Long idIncident) {
+    	return incidentService.cloreIncident(id, idIncident);
+    }
+    
 }   
 

@@ -1,11 +1,13 @@
 package com.materiel.gestion.apigestion.controller;
 
+import com.materiel.gestion.apigestion.model.dto.Intervalle;
 import com.materiel.gestion.apigestion.model.entite.Client;
 import com.materiel.gestion.apigestion.model.entite.Contact;
+import com.materiel.gestion.apigestion.model.entite.Incident;
 import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.service.IClientService;
 import com.materiel.gestion.apigestion.service.IContactService;
-
+import com.materiel.gestion.apigestion.service.IIncidentService;
 import com.materiel.gestion.apigestion.service.IMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -31,6 +34,9 @@ public class ClientRestController {
 
     @Autowired
     IMaterielService materielService;
+    
+    @Autowired
+    IIncidentService incidentService;
 
     @GetMapping("/{id}")
     public Client getById(@PathVariable Long id) {
@@ -138,6 +144,17 @@ public class ClientRestController {
         Materiel m = new Materiel(idMateriel);
         m.setClient(ml);
         materielService.delete(m);
+    }
+    
+    /****** INCIDENTS ******/
+    
+    @GetMapping(path = "/{id}/incidents")
+    public List<Incident> getIncidentsInIntervalle(@PathVariable Long id, @RequestParam Date dateDebut, @RequestParam Date dateFin) {
+    	dateDebut = dateDebut == null ? new Date(Long.MIN_VALUE) : dateDebut;
+    	dateFin = dateFin == null ? new Date(Long.MAX_VALUE) : dateFin;
+    	
+    	// TODO vérifier dans les paramètres de la requête si le format voulu est json et pdf, et générer un PDF dans le deuxième cas
+    	return incidentService.getByClientAndDates(id, dateDebut, dateFin);
     }
     
 }

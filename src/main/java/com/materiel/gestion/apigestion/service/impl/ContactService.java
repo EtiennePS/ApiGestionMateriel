@@ -37,7 +37,7 @@ public class ContactService extends GettableService<Contact> implements IContact
 		Personne p;
 		
 		if(c.getId() != null) {
-			throw new CreationException("Il est interdit de renseigner l'id lors de la création de Personne");
+			throw new CreationException("Il est interdit de renseigner l'id lors de la création de Contact");
 		}
 		
 		// Si la personne lié au contact n'existe pas encore, il faut la créer

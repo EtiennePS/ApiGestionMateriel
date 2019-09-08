@@ -114,7 +114,8 @@ VALUES (1, 'Dell 1520', '011201252012', 1, 1),
        (3, 'NETGEAR DS1005', '35s4d54s684f', 1, 2),
        (4, 'TP-LINK GS108', 'sdfsdf435438', 1, 3),
        (5, 'PASSERELLE LINUX', 'fhh64zeer64fg', 1, 4),
-       (6, 'DEV NICOLAS', '6784f8dgd38', 1, 4);
+       (6, 'DEV NICOLAS', '6784f8dgd38', 1, 4),
+       (7, 'Xtrem Print', '6detr4iu7', 2, 3);
 
 CREATE TABLE typeif(
     id INT NOT NULL PRIMARY KEY auto_increment,
@@ -185,21 +186,37 @@ CREATE TABLE user (
 	CONSTRAINT user_name_uniq UNIQUE KEY (username)
 )Engine=InnoDB;
 
-create table statut(
-id int not null PRIMARY KEY auto_increment,
-nom varchar(50) )Engine=InnoDB;
+create table status(
+	id int not null PRIMARY KEY auto_increment,
+	libelle varchar(50) not null 
+)Engine=InnoDB;
+
+insert into status(id, libelle) values (1, "Ouvert"), (2, "Clôturé");
 
 create table incident(
-id int not null PRIMARY KEY auto_increment ,
-dateCreation datetime not null,
-dateCloture datetime,
-symptome VARCHAR(1000),
-resolution VARCHAR(1000),
-nom varchar(50),
-idstatut int ,
-idmateriel int,
-   CONSTRAINT FK_APP_STATUT FOREIGN KEY (idstatut) REFERENCES statut(id),
+	id int not null PRIMARY KEY auto_increment ,
+	dateCreation datetime not null,
+	dateCloture datetime,
+	symptome VARCHAR(1000) not null,
+	resolution VARCHAR(1000),
+	libelle varchar(50) not null,
+	idstatus int not null,
+	idmateriel int not null,
+   CONSTRAINT FK_APP_STATUT FOREIGN KEY (idstatus) REFERENCES status(id),
    CONSTRAINT FK_APP_MATERIEL FOREIGN KEY (idmateriel) REFERENCES materiel(id)
-   )Engine=InnoDB;
+)Engine=InnoDB;
+
+insert into incident(dateCreation, dateCloture, symptome, resolution, libelle, idstatus, idmateriel) values
+('2019-06-01 10:00:00', '2019-07-31 10:00:00', "j'ai un probleme", "j'ai une solution", "aide", 2, 1),
+('2019-07-01 10:00:00', '2019-08-31 10:00:00', "j'ai un probleme", "j'ai une solution", "aide1", 2, 2),
+('2019-08-01 10:00:00', NULL, "j'ai un probleme", "j'ai une solution", "aide2", 1, 1),
+('2019-09-01 10:00:00', NULL, "j'ai un probleme", "j'ai une solution", "aide3", 1, 2),
+('2019-06-01 10:00:00', NULL, "j'ai un probleme", "j'ai une solution", "aide4", 1, 3),
+('2019-07-01 10:00:00', NULL, "j'ai un probleme", "j'ai une solution", "aide5", 1, 4),
+('2019-08-01 10:00:00', '2019-08-31 10:00:00', "j'ai un probleme", "j'ai une solution", "aide6", 2, 3),
+('2019-09-01 10:00:00', '2019-09-06 10:00:00', "j'ai un probleme", "j'ai une solution", "aide7", 2, 1),
+('2019-06-01 10:00:00', '2019-06-30 10:00:00', "j'ai un probleme", "j'ai une solution", "aide8", 2, 1),
+('2019-07-01 10:00:00', '2019-07-31 10:00:00', "j'ai un probleme", "j'ai une solution", "aide9", 2, 2),
+('2019-08-01 10:00:00', '2019-09-05 10:00:00', "j'ai un probleme", "j'ai une solution", "aide10", 2, 7);
 
 

@@ -39,4 +39,7 @@ public class Materiel {
 
 	@OneToMany(mappedBy="materiel")
 	private List<Interface> interfaces;
+	
+	@OneToMany(mappedBy = "materiel")
+	private List<Incident> incidents;
 }
