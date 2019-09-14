@@ -1,7 +1,8 @@
-DROP DATABASE IF EXISTS netgest;
+/*DROP DATABASE IF EXISTS netgest;
 CREATE DATABASE netgest;
-USE netgest;
+USE netgest;*/
 
+DROP TABLE IF EXISTS appartient,personne,incident,adresseip,interface,user,materiel,client,ville,fonction,status,typeaffectation,typeif,typemateriel;
 CREATE TABLE ville(
     id INT NOT NULL PRIMARY KEY auto_increment,
     codepostal CHAR(5) NOT NULL,
