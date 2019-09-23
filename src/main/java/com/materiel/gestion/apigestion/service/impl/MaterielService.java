@@ -73,7 +73,7 @@ public class MaterielService extends GettableService<Materiel> implements IMater
     @Override
     public Materiel getById(Long idMateriel, Long idClient) {
         checkClient(buildMaterielObject(idMateriel, idClient));
-        return null;
+        return this.getById(idMateriel);
     }
     
     @Override
