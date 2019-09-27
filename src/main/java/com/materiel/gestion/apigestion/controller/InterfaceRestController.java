@@ -3,7 +3,6 @@ package com.materiel.gestion.apigestion.controller;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,14 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.materiel.gestion.apigestion.model.entite.AdresseIp;
-import com.materiel.gestion.apigestion.model.entite.Client;
-import com.materiel.gestion.apigestion.model.entite.Contact;
 import com.materiel.gestion.apigestion.model.entite.Interface;
-import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.service.IAdresseIpService;
 import com.materiel.gestion.apigestion.service.IInterfaceService;
-import com.materiel.gestion.apigestion.service.impl.AdresseIpService;
-import com.materiel.gestion.apigestion.service.impl.InterfaceService;
 
 @RestController
 @RequestMapping(path = "api/v1/interfaces", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

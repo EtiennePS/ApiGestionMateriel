@@ -10,6 +10,7 @@ import com.materiel.gestion.apigestion.service.ITypeInterfaceService;
 @Service
 public class TypeInterfaceService extends GettableService<TypeInterface> implements ITypeInterfaceService{
 
-		@Autowired
-		private TypeInterfaceRepository repository;
-	}
+	@SuppressWarnings("unused")
+	@Autowired
+	private TypeInterfaceRepository repository;
+}

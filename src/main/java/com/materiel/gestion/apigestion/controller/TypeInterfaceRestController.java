@@ -1,15 +1,12 @@
 package com.materiel.gestion.apigestion.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import com.materiel.gestion.apigestion.model.entite.Interface;
 import com.materiel.gestion.apigestion.model.entite.TypeInterface;
-import com.materiel.gestion.apigestion.service.IInterfaceService;
 import com.materiel.gestion.apigestion.service.ITypeInterfaceService;
 
 @RestController

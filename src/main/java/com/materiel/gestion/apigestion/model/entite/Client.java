@@ -1,6 +1,5 @@
 package com.materiel.gestion.apigestion.model.entite;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.materiel.gestion.apigestion.model.entite.Client;
 import com.materiel.gestion.apigestion.model.entite.Incident;
-import com.materiel.gestion.apigestion.model.entite.Materiel;
 import com.materiel.gestion.apigestion.model.entite.Status;
 
 

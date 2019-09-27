@@ -18,9 +18,6 @@ public class ClientService extends GettableService<Client> implements IClientSer
 	@Autowired
 	private IVilleService villeService;
 
-	@Autowired
-	private IClientService clientService;
-
 	@Override
 	@Transactional
 	public Client create(Client c) {

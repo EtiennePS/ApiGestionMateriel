@@ -10,7 +10,6 @@ import com.materiel.gestion.apigestion.service.IContactService;
 import com.materiel.gestion.apigestion.service.IIncidentService;
 import com.materiel.gestion.apigestion.service.IMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +38,6 @@ public class ClientRestController {
     
     @Autowired
     private IIncidentService incidentService;
-    
-    @Autowired
-    private ApplicationContext appContext;
 
     @GetMapping("/{id}")
     public Client getById(@PathVariable Long id) {

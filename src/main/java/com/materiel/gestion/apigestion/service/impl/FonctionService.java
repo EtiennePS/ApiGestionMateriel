@@ -12,6 +12,7 @@ import com.materiel.gestion.apigestion.service.IFonctionService;
 @Service
 public class FonctionService extends GettableService<Fonction> implements IFonctionService {
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private FonctionRepository repository;
 	

@@ -10,6 +10,7 @@ import com.materiel.gestion.apigestion.service.IStatusService;
 @Service
 public class StatusService extends GettableService<Status> implements IStatusService {
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private StatusRepository repository;
 }

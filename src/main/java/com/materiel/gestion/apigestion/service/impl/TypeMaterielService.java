@@ -1,7 +1,6 @@
 package com.materiel.gestion.apigestion.service.impl;
 
 import com.materiel.gestion.apigestion.model.entite.TypeMateriel;
-import com.materiel.gestion.apigestion.repository.TypeAffectationRepository;
 import com.materiel.gestion.apigestion.repository.TypeMaterielRepository;
 import com.materiel.gestion.apigestion.service.ITypeMaterielService;
 import org.springframework.beans.factory.annotation.Autowired;
