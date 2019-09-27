@@ -81,8 +81,15 @@ public class InterfaceService extends GettableService<Interface> implements IInt
 	
 	@Override
 	@Transactional
-	public void delete(Interface i) {
-		checkMateriel(i);
+	public void delete(Interface interf) {
+		checkMateriel(interf);
+		
+		Interface i = this.getById(interf.getId());
+		
+		AdresseIp a = i.getAdresse();
+		a.setInterf(i);
+		this.adresseIpService.delete(a);
+		
 		repository.delete(i);
 		
 		if (repository.existsById(i.getId())){
