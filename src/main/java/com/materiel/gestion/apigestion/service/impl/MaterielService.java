@@ -78,7 +78,7 @@ public class MaterielService extends GettableService<Materiel> implements IMater
     @Override
     public byte[] getQrCodeById(Long idMateriel, Long idClient) {
         checkClient(buildMaterielObject(idMateriel, idClient));
-        String uriApp = "gestionMateriel/clients/" + idClient + "/materiels/" + idMateriel;
+        String uriApp = "GestionMateriel://clients/" + idClient + "/materiels/" + idMateriel;
         return QRCode.from(uriApp).withSize(200, 200).to(ImageType.PNG).stream().toByteArray();
     }
 
