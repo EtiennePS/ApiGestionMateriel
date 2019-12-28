@@ -32,7 +32,7 @@ CREATE TABLE client(
 )Engine=InnoDB;
 
 INSERT INTO client(id, nom, adresse1, adresse2, idcpville)
-VALUES (1, 'AVALONE', '152 Avenue Jean-Jaurès', null, 1),
+VALUES (1, 'AVALONE', '152 Avenue Jean-JaurÃ¨s', null, 1),
        (2, 'CGI', null, null, null),
        (3, 'EPSI', null, null, null),
        (4, 'CAP GEMINI', null, null, null),
@@ -46,7 +46,7 @@ CREATE TABLE fonction(
 )Engine=InnoDB;
 
 INSERT INTO fonction(id, libelle)
-VALUES (1, 'Gérant'),
+VALUES (1, 'GÃ©rant'),
        (2, 'Directeur'),
        (3, 'Technicien'),
        (4, 'Commercial'),
@@ -65,7 +65,7 @@ INSERT INTO personne(id, nom, prenom, telephone, email)
 VALUES (1, 'GILLET', 'Michel', '06.03.45.71.18', 'michel@avalone-fr.com'),
        (2, 'SOUMAILLES', 'Lucas', null, 'lucas33@cgi-group.com'),
        (3, 'LEMONNIER', 'Marius', null, 'marius.lemonnier@campus-cd.com'),
-       (4, 'CHESNEAU', 'Sébastien', null, 'sebkeyoc@cap-gemini.fr'),
+       (4, 'CHESNEAU', 'SÃ©bastien', null, 'sebkeyoc@cap-gemini.fr'),
        (5, 'GONZALES', 'Benjamin', null, 'benapparte@edf-for-fun.fr');
 
 CREATE TABLE appartient(
@@ -192,7 +192,7 @@ create table status(
 	libelle varchar(50) not null 
 )Engine=InnoDB;
 
-insert into status(id, libelle) values (1, "Ouvert"), (2, "Cl�tur�");
+insert into status(id, libelle) values (1, "Ouvert"), (2, "Clôturé");
 
 create table incident(
 	id int not null PRIMARY KEY auto_increment ,
